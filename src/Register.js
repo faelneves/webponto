@@ -22,7 +22,14 @@ export default class Register extends Component {
     
     formSubmit(event) {
         event.preventDefault();
-        http.post('login',this.state);
+        http.post('createPessoa',this.state).then((response)=>response.json())
+        .then((responseJson)=>
+        {
+            if(responseJson['status'] == 'success'){
+                window.location.href= './';
+            }
+                
+        });;
     };
     
     ChangeForm (event) {
@@ -34,7 +41,9 @@ export default class Register extends Component {
     render() {
         return (
         <div>
-            <NavBar/>
+            <NavBar
+                title="Cadastro"
+            />
             <Grid container spacing={3}>
                 <Grid item xs={12} >
                     <Paper>

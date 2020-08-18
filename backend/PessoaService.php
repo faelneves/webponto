@@ -8,7 +8,7 @@ class PessoaService extends Conexao{
         $sql ='INSERT INTO pessoa (nrpessoa, nome, dtnasc, email, telefone, horasDia, senha) VALUES (NULL, '.($dados['nome'] ? "'".$dados['nome']."'" : 'NULL').', '.($dados['dtnasc'] ? "'".$dados['dtnasc']."'" : 'NULL').', '.($dados['email'] ? "'".$dados['email']."'" : 'NULL').', '.($dados['telefone'] ? "'".$dados['telefone']."'" : 'NULL').', '.($dados['horasDia'] ? "'".$dados['horasDia']."'" : 'NULL').', '.($dados['senha'] ? "'".$dados['senha']."'" : 'NULL').')';
         
         if (mysqli_query($connect, $sql)) {
-           echo "New record created successfully";
+            return ['status' => 'success', 'Message' => 'Conta Criada com Sucesso!'];
         } else {
            echo "Error: " . $sql . "" . mysqli_error($connect);
         }

@@ -1,14 +1,15 @@
 import React from 'react';
-import axios from 'axios';
 
 export default class HttpRequest { 
-    static defaultRoute = "http://192.168.15.3/WebPonto/backend/";
+    static defaultRoute = "http://localhost/WebPonto/backend/";
 
     static post(route, params) {
         params['route']=route;
-        fetch(this.defaultRoute, {
+        return fetch(this.defaultRoute, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
+            credentials: 'include',
+            headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify({
                 params
             }),

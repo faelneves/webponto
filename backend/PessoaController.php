@@ -5,7 +5,8 @@ class PessoaController {
     
     public function insertPessoa($dados){
         $service = new PessoaService();
-        $service->insertPessoa($dados['params']);
+        $response = $service->insertPessoa($dados['params']);
+        echo (json_encode( $response )); 
     }
     
 }

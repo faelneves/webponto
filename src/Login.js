@@ -10,7 +10,8 @@ export default class Login extends Component {
         super(props);
         this.state = {
             email: null,
-            senha: null
+            senha: null,
+            mensagem: ''
         };
         this.ChangeForm = this.ChangeForm.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
@@ -18,7 +19,18 @@ export default class Login extends Component {
     
     formSubmit(event) {
         event.preventDefault();
-        http.post('login',this.state);
+        http.post('login',this.state)
+        .then((response)=>response.json())
+        .then((responseJson)=>
+        {
+            if(responseJson['status'] == 'error'){
+                this.setState({ mensagem: responseJson['Message'] });
+            }else if(responseJson['status'] == 'success'){
+                this.setState({ mensagem: responseJson['Message'] });
+                window.location.href= './Marcacao';
+            }
+                
+        });
     };
     
     ChangeForm (event) {
@@ -30,9 +42,12 @@ export default class Login extends Component {
     render() {
         return (
         <div>
-            <NavBar/>
+            <NavBar
+                title="Login"
+            />
             <Container component="main" maxWidth="xs">
-                <Grid style={{ width: '100%', 'margin-top': '20%',}}>
+                <Grid style={{ width: '100%', marginTop: '20%',}}>
+                    <p style={{ textAlign: 'center'  }}>{this.state.mensagem}</p>
                     <Paper>
                     <form onSubmit={this.formSubmit}>
                         <TextField 
